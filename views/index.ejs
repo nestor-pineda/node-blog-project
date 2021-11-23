@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <%- include("./partials/nav.ejs") %> <% if (blogs.length > 0) { %> <% blogs.forEach(item => { %>
+    <h3><%= item.title %></h3>
+    <p><%= item.snippet %></p>
+    <% }) %> <% } else {%>
+    <p>There are no Blog posts to show!</p>
+    <% } %>
+
+    <h1>This is my Index page</h1>
+  </body>
+</html>

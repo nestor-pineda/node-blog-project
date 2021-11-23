@@ -1,0 +1,4 @@
+# ignora archivos de vsc
+.vscode
+# ignora los node_modules
+node_modules
