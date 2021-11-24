@@ -6,6 +6,9 @@ const app = express();
 //Mongoose
 const mongoose = require("mongoose");
 
+// Blog file
+const Blog = require("./models/blog");
+
 // Connection to MongoDB
 const uri = "mongodb+srv://nestor:HolaHola@cluster0.zyigi.mongodb.net/node-tut?retryWrites=true&w=majority";
 mongoose
@@ -18,6 +21,43 @@ app.set("view engine", "ejs");
 
 // Middleware & static files
 app.use(express.static("public"));
+
+// Interaction with DB
+app.get("/add-blog", (req, res) => {
+  const blog = new Blog({
+    title: "New Blog post 2",
+    snippet: "About my blog",
+    body: "Text inside my blog",
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/all-blogs", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/single-blog", (req, res) => {
+  Blog.findById("619e1a05a4523e49f2bbb944")
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // Respond to requests
 app.get("/", (req, res) => {

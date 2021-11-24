@@ -26,4 +26,4 @@ const blogSchema = new Schema(
 const Blog = mongoose.model("Blog", blogSchema);
 
 // We now export const Blog so we can use it elsewhere.
-module.exports = Blogs;
+module.exports = Blog;
