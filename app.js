@@ -22,7 +22,7 @@ app.set("view engine", "ejs");
 // Middleware & static files
 app.use(express.static("public"));
 
-// Interaction with DB
+/* // Interaction with DB
 app.get("/add-blog", (req, res) => {
   const blog = new Blog({
     title: "New Blog post 2",
@@ -58,26 +58,34 @@ app.get("/single-blog", (req, res) => {
       console.log(err);
     });
 });
-
+ */
 // Respond to requests
 app.get("/", (req, res) => {
-  const blogs = [
-    { title: "El nombre del viento", snippet: "Bla bla bla " },
-    { title: "El temor de un hombre savio", snippet: "Bla bla bla " },
-    { title: "El libro que nunca saldrá", snippet: "Bla bla bla " },
-  ];
-  // res.render("index", { title: "Home", blogs: blogs });
-  // Bc the key name & key value have the same name, we can just put blogs
-  res.render("index", { title: "Home", blogs });
+  res.redirect("/blogs");
 });
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
+//Blog Routes
+
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("index", { title: "All Blogs", blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get("/blogs/create", (req, res) => {
   res.render("create", { title: "Blog" });
 });
+
+//
 
 // 404 page
 app.use((req, res) => {
