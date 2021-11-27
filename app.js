@@ -1,3 +1,4 @@
+const { render } = require("ejs");
 const express = require("express");
 
 // Express App
@@ -21,9 +22,10 @@ app.set("view engine", "ejs");
 
 // Middleware & static files
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true })); // Form data accepting
 
-/* // Interaction with DB
-app.get("/add-blog", (req, res) => {
+// Interaction with DB
+/* app.get("/add-blog", (req, res) => {
   const blog = new Blog({
     title: "New Blog post 2",
     snippet: "About my blog",
@@ -49,6 +51,8 @@ app.get("/all-blogs", (req, res) => {
     });
 });
 
+
+
 app.get("/single-blog", (req, res) => {
   Blog.findById("619e1a05a4523e49f2bbb944")
     .then((result) => {
@@ -57,8 +61,8 @@ app.get("/single-blog", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-});
- */
+}); */
+
 // Respond to requests
 app.get("/", (req, res) => {
   res.redirect("/blogs");
@@ -75,6 +79,29 @@ app.get("/blogs", (req, res) => {
     .sort({ createdAt: -1 })
     .then((result) => {
       res.render("index", { title: "All Blogs", blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post("/blogs", (req, res) => {
+  const blog = new Blog(req.body);
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id; // id = :id, could be nuts = :nuts
+  Blog.findById(id)
+    .then((result) => {
+      res.render("single", { blog: result, title: "Single Blog" });
     })
     .catch((err) => {
       console.log(err);
