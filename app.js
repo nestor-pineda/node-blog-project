@@ -1,14 +1,10 @@
 const { render } = require("ejs");
-const express = require("express");
+const express = require("express"); // Express
+const mongoose = require("mongoose"); // Mongoose
+const blogRoutes = require("./routes/blogRoutes"); //Blog route handlers
 
 // Express App
 const app = express();
-
-//Mongoose
-const mongoose = require("mongoose");
-
-// Blog file
-const Blog = require("./models/blog");
 
 // Connection to MongoDB
 const uri = "mongodb+srv://nestor:HolaHola@cluster0.zyigi.mongodb.net/node-tut?retryWrites=true&w=majority";
@@ -24,45 +20,6 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true })); // Form data accepting
 
-// Interaction with DB
-/* app.get("/add-blog", (req, res) => {
-  const blog = new Blog({
-    title: "New Blog post 2",
-    snippet: "About my blog",
-    body: "Text inside my blog",
-  });
-  blog
-    .save()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/all-blogs", (req, res) => {
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-
-
-app.get("/single-blog", (req, res) => {
-  Blog.findById("619e1a05a4523e49f2bbb944")
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}); */
-
 // Respond to requests
 app.get("/", (req, res) => {
   res.redirect("/blogs");
@@ -72,47 +29,8 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-//Blog Routes
-
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", { title: "All Blogs", blogs: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.post("/blogs", (req, res) => {
-  const blog = new Blog(req.body);
-  blog
-    .save()
-    .then((result) => {
-      res.redirect("/blogs");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/:id", (req, res) => {
-  const id = req.params.id; // id = :id, could be nuts = :nuts
-  Blog.findById(id)
-    .then((result) => {
-      res.render("single", { blog: result, title: "Single Blog" });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Blog" });
-});
-
-//
+// Blog routes
+app.use("/blogs", blogRoutes);
 
 // 404 page
 app.use((req, res) => {
