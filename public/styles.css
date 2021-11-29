@@ -1,3 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@500&display=swap");
+
+html,
+* {
+  font-family: "M PLUS 2", sans-serif;
+  font-size: 1em;
+  color: #20053a;
+}
+
+/*NAVIGATION*/
+/*******************/
+.nav-div {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-bottom: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  overflow: hidden;
+}
+
+.nav-div h1 a {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.nav-div h1 a:hover {
+  color: #20053a;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  /*   align-items: center;*/
+  list-style-type: none;
+}
+
+nav li {
+  box-sizing: border-box;
+  padding: 5px 15px;
+}
+
+nav li a {
+  text-decoration: none;
+}
+
+nav li a:hover {
+  text-decoration: none;
+  color: #808080;
+}
+
+/*HOME*/
+/*******************/
+
+.main-section {
+  width: 100vw;
+  overflow: hidden;
+  height: auto;
+  box-sizing: border-box;
+  padding: 30px 20px;
+}
+
+h2.blog-section {
+  font-size: 1.2rem;
+}
+
+a.blog-post-link {
+  text-decoration: none;
+  border-left: 4px solid #9753d6;
+  display: block;
+  padding-left: 10px;
+}
+
+h3.blog-title {
+  font-size: 1.1rem;
+}
+
+p.blog-sippet {
+  font-size: 0.9rem;
+}
+
 .delete {
   border: 1px solid red;
   padding: 5px;

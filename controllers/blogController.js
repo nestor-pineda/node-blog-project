@@ -41,11 +41,10 @@ const blog_details = (req, res) => {
 const blog_delete = (req, res) => {
   const id = req.params.id;
 
-  Blog.findByIdAndDelete(id) // After we delete the blog-post
+  Blog.findByIdAndDelete(id)
     .then((result) => {
-      // then we will send a response to the browser
-      res.json({ redirect: "/blogs" }); // ist going to be a json object
-    }) // that contains a redirection to /blogs
+      res.json({ redirect: "/blogs" });
+    })
     .catch((err) => {
       console.log(err);
     });

@@ -2,17 +2,21 @@
 <html lang="en">
   <%- include("./partials/head.ejs") %>
   <body>
-    <%- include("./partials/nav.ejs") %> <% if (blogs.length > 0) { %> <% blogs.forEach(item => { %>
+    <%- include("./partials/nav.ejs") %>
+    <div class="main-section">
+      <h2 class="blog-section">New articles:</h2>
+      <% if (blogs.length > 0) { %> <% blogs.forEach(item => { %>
 
-    <a href="/blogs/<%= item._id %>">
-      <h3><%= item.title %></h3>
-      <p><%= item.snippet %></p>
-    </a>
+      <a class="blog-post-link" href="/blogs/<%= item._id %>">
+        <h3 class="blog-title"><%= item.title %></h3>
+        <p class="blog-sippet"><%= item.snippet %></p>
+      </a>
 
-    <% }) %> <% } else {%>
-    <p>There are no Blog posts to show!</p>
-    <% } %>
-
-    <h1>This is my Index page</h1>
+      <% }) %> <% } else {%>
+      <p>There are no Blog posts to show!</p>
+      <% } %>
+      <a class="blog-section"><a href="/blogs/create"> + Add a new one here</a></h2>
+     
+    </div>
   </body>
 </html>
